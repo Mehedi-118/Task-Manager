@@ -1,0 +1,6 @@
+ 
+ Tasks.Where(u=>u.UserId==1)
+ 		.GroupBy(catId=>catId.CategoryId)
+	    .Select(g=>new{CatId = g.Key,count=g.Count()})
+		.OrderByDescending(k=>k.count) 
+	    .Join(Categories,s=>s.CatId,j=>j.Id,(s,j)=>new{s.count,j.CategoryName})

@@ -1,0 +1,77 @@
+﻿@using Updated_Task_Manager.ViewModels;
+@model DeleteJobVM
+@{
+
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var returnJobId = ViewBag.jobId;
+
+}
+<h2 class="text-center text-info">Edit Task</h2>
+<div class="row">
+
+    <div class="col-md-12 mx-auto rounded bg-white p-3">
+
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*:::::::::::::::::::::::::::::---------------------- Task Category Selection ---------------------::::::::::::::::::::::::::::::::*@
+            <div class="row">
+                <div class="col-md-3 mx-auto d-flex align-items-center ">
+
+                    <select asp-for="CategoryId" class="form-select" asp-items="@ViewBag.categories">
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+            </div>
+            @*:::::::::::::::::::::::::::::---------------------- Task Details Form---------------------::::::::::::::::::::::::::::::::*@
+            <div class="row">
+
+                <div class="col-md-6 form-group mt-2">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Details" class="control-label"></label>
+                        <input asp-for="Details" class="form-control" />
+                        <span asp-validation-for="Details" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-left:20px;">
+                        <label asp-for="Priority" class="control-label">Priority</label><br>
+                        @foreach (var priority in ViewBag.priorityListGet)
+                        {
+                            <input class="form-check-input" type="radio" asp-for="Priority" id=@priority value="@priority">
+                            <label class="form-check-label" for="@priority">@priority</label>
+
+                            <br />
+                        }
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group mt-2">
+                    <label asp-for="TaskStartDateTime" class="control-label"></label>
+                    <input asp-for="TaskStartDateTime" class="form-control" />
+
+                    <span asp-validation-for="TaskStartDateTime" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="TaskEndDateTime" class="control-label"></label>
+                        <input asp-for="TaskEndDateTime" class="form-control" />
+                        <span asp-validation-for="TaskEndDateTime" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-md-4 mx-auto text-center my-1">
+                    <input type="submit" value="Delete" asp-route-jobId="@returnJobId" asp-route-CategoryId="@TempData["CategoryId"]" class="btn btn-primary" />
+                    <a asp-action="List" class="btn btn-warning">Back To List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+

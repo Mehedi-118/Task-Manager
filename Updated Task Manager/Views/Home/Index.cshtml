@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/css/Homepage.css" />
+    <style>
+
+        .myCard:hover {
+            /*border:1px solid black;*/
+            box-shadow: 2px 3px #7952b344;
+            transform: Scale(1.06);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        #Banner {
+        }
+    </style>
+
+}
+    <div class="mb-1" style="margin-left: 0px;padding-left:0px;margin-right: -60px;">
+        <div id="dashBoard" class=" wrapper">
+            <div class="card card-body p-3" id="Banner" style="background-color: rgba(89, 183, 226, 0.662);">
+                <h1 class="text-center" style="font-size:60px;color:black;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    Manage your Time Well
+                    <span>
+                        <img src="~/img/dashboardLogo.jpg" class="img-fluid" alt=""
+                         srcset="" style="display:float; float:right; height: 130px;">
+                    </span>
+
+                </h1>
+            </div>
+
+            <div class="row  d-flex">
+                <div class="col-sm-6 col-md-12 col-12 mt-1 rounded">
+
+                    <h3 class="text-light text-center bg-primary mb-1 mt-1 ">
+                        Categories
+                    </h3>
+                    <div class="d-flex justify-content-end mb-1">
+                        <a asp-controller="Task" asp-action="CreateFromHome" class="btn btn-success btn-lg">
+                            <i class="fa fa-plus ms-2" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 col-3 mt-2 mx-auto">
+                            <div class="card myCard">
+                                @*<div>*@
+                                <img src="~/img/work.png" class="rounded mx-auto p-2 d-block card-img-top" alt=""
+                                 srcset="">
+                                @*</div>*@
+                                <div class="card-body p-2">
+                                    <h5 class="card-title m-1"> Work</h5>
+                                    <p class="card-text m-1">You have $$$  task to do .</p>
+
+                                    <a asp-action="List" asp-controller="Task" class="btn btn-primary  btn-sm mb-2" asp-route-CategoryId=1 id="workList">View Tasks</a>
+                                    @*<a asp-action="AddTask" asp-controller="Task" class="btn btn-primary  btn-sm mb-2">Add Tasks</a>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-3 mt-2 mx-auto">
+                            <div class="card myCard">
+                                @*<div>*@
+                                <img src="~/img/personalLogo.jpg" class="rounded mx-auto p-2 d-block card-img-top" alt=""
+                                 srcset="">
+                                @*</div>*@
+
+                                <div class="card-body p-2">
+                                    <h5 class="card-title m-1"> Personal</h5>
+                                    <p class="card-text m-1">You have $$$  task to do .</p>
+                                    <a asp-action="List" asp-controller="Task" class="btn btn-primary  btn-sm mb-2" asp-route-CategoryId=2 id="personalList">View Tasks</a>
+                                    @*<a href="#" class="btn btn-primary  btn-sm mb-2">Add Tasks</a>*@
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row mt-1">*@
+                        <div class="col-sm-6 col-md-3 col-3 mt-2 mx-auto">
+                            <div class="card myCard">
+                                @*<div>*@
+
+                                <img src="~/img/shoppingLogo.png" class="rounded mx-auto p-2 d-block card-img-top" alt=""
+                                 srcset="">
+                                @*</div>*@
+                                <div class="card-body p-2">
+                                    <h5 class="card-title m-1"> Shopping</h5>
+                                    <p class="card-text m-1">You have $$$  task to do .</p>
+                                    <a asp-action="List" asp-controller="Task" class="btn btn-primary  btn-sm mb-2" asp-route-CategoryId=3 id="shoppingList">View Tasks</a>
+                                    @*<a href="#" class="btn btn-primary  btn-sm mb-2">Add Tasks</a>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 col-3 mt-2 mx-auto">
+                            <div class="card myCard">
+                                @*<div>*@
+
+                                <img src="~/img/othersLogo.png" class="rounded mx-auto p-2 d-block card-img-top" alt=""
+                                 srcset="">
+                                @*</div>*@
+                                <div class="card-body p-2">
+                                    <h5 class="card-title m-1"> Others</h5>
+                                    <p class="card-text m-1">You have $$$  task to do .</p>
+                                    <a asp-action="List" asp-controller="Task" class="btn btn-primary  btn-sm mb-2" asp-route-CategoryId=4 id="othersList">View Tasks</a>
+                                    @*<a href="#" class="btn btn-primary  btn-sm mb-2">Add Tasks</a>*@
+                                </div>
+                            </div>
+                        </div>
+                        @*</div>*@
+                    </div>
+
+                </div>
+            </div>
+
+            @*///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Statistics :;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*@
+
+            @*<div class="col-sm-6 col-md-6 col-12 mt-2 border-2 border-top-0 border-bottom-0 border-end-0 bg-white ps-2" id="stat">
+
+        <h3 class="text-light text-center bg-info mb-2 mt-2 rounded-3">
+        To-Do Summary
+        </h3>
+        <div class="row">
+        <div class="col">
+        <div>
+        <h4 class="bg-light text-primary my-auto text-center">
+        Total Open Tasks
+        </h4>
+        </div>
+        <div class="border mt-2">
+        <h6 class="text-center">number of tasks</h6>
+        </div>
+        </div>
+        <div class="col">
+        <div>
+        <h4 class="bg-light text-primary my-auto text-center">
+        Task Priority
+        </h4>
+        </div>
+        <div class="row mb-1">
+        <div class="card">
+        <h5 class="">
+        Critical
+        </h5>
+        </div>
+        </div>
+        <div class="row mb-1">
+        <div class="card">
+        <h5 class="card-title">
+        Medium
+        </h5>
+        </div>
+        </div>
+        <div class="row mb-1">
+        <div class="card">
+        <h5 class="card-title">
+        Medium
+        </h5>
+        </div>
+        </div>
+
+        </div>
+
+        </div>
+
+        <div>
+        <canvas id="chart_area" class="mx-auto bg-light mt-2 d-flex" style="max-height:200px; max-width:400px"></canvas>
+        <h6 class="text-center">
+        Statistics
+        </h6>
+        </div>
+        </div>*@
+        </div>
+    </div>

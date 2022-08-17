@@ -1,0 +1,141 @@
+﻿@model ICollection<Job>
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section styles{
+    <style>
+        tbody:nth-child(2n+1) {
+            background-color: skyblue;
+            color: black;
+        }
+        tbody:nth-child(2n) {
+            background-color: lightgray;
+            color: black;
+        }
+
+    </style>
+}
+    <div class=" row">
+        <div class="col-md-12 mx-auto">
+            <h2 class="text-info text-center bg-dark  p-2 ">@ViewData["Title"] Task List</h2>
+            <hr />
+            <div style="float:right">
+                <a asp-controller="Task" asp-action="Create" asp-route-CategoryId=@(TempData["CategoryId"])
+               class="btn btn-success btn-md m-2">
+                    Add Task
+                    <i class="fa fa-plus ms-2" aria-hidden="true"></i>
+                </a>
+            </div>
+            @*If Want to get pagination Both Top and Bottom  then Uncomment this Part*@
+            @* <div>
+        <partial name="_Pagination" />
+        </div>*@
+
+            <div class="table-responsive-md table-responsive-lg table-sm  text-center table-hover ">
+                <table class="table table-striped mx-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col">SL</th>
+                            <th scope="col">Task Title</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Created on</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Task Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+
+                    </thead>
+                    @{
+                        var incr = 1;
+                    }
+                @if (ViewBag.TotalTaskCount!=0 )
+                {
+                    @foreach (var c in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@(incr++)</td>
+                                <td>@c.Title</td>
+                                <td>@c.Details</td>
+                                <td>@c.TaskCreationDate</td>
+                                <td>@c.Priority</td>
+                                <td>@c.TaskStartDateTime</td>
+                                <td>@c.TaskEndDateTime</td>
+                                <td>@c.Status</td>
+                                <td>
+                                    <a asp-controller="Task"   asp-action="Edit" asp-route-jobId="@c.Id" asp-route-CategoryId=@TempData["CategoryId"] class="btn btn-primary m-1"><i class="fas fa-edit"aria-hidden="true"></i></a>
+                                    <a asp-controller="Task"   asp-action="Delete" asp-route-jobId="@c.Id" asp-route-CategoryId=@TempData["CategoryId"] class="btn btn-danger m-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <a asp-controller="Task"   asp-action="Status" asp-route-jobId="@c.Id" asp-route-CategoryId=@TempData["CategoryId"] class ="btn btn-success m-1"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    }
+                }
+                else
+                {
+                    <tbody>
+                        <tr>
+                            <td colspan="9" class="text-center"><strong>No Data Found</strong></td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+
+        @{
+            Pager pager = new Pager();
+            int paegNo = 0;
+            if (ViewBag.Pager != null)
+            {
+                pager = ViewBag.Pager;
+                paegNo = pager.CurrentPage;
+            }
+        }
+        <div class="col-md-7 mx-auto d-flex">
+            <div class="mx-auto">
+                @if (pager.TotalPages > 0)
+                {
+                    <nav class="mb-4">
+                        <ul class=" nav pagination justify-content-center ">
+                            @if (pager.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-controller="Task" asp-action="List" asp-route-pg="1" asp-route-CategoryId="@TempData["CategoryId"]">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" asp-controller="Task" asp-action="List" asp-route-pg="@(pager.CurrentPage-1)" asp-route-CategoryId="@TempData["CategoryId"]">Previous</a>
+                                </li>
+                            }
+                            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                            {
+                                <li class="page-item @(pge==pager.CurrentPage? "active":"")">
+                                    <a class="page-link" asp-controller="Task" asp-action="List" asp-route-pg="@pge" asp-route-CategoryId="@TempData["CategoryId"]">@pge</a>
+                                </li>
+
+                            }
+                            @if (pager.CurrentPage < pager.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-controller="Task" asp-action="List" asp-route-pg="@(pager.CurrentPage+1)"asp-route-CategoryId="@TempData["CategoryId"]">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" asp-controller="Task" asp-action="List" asp-route-pg="@(pager.TotalPages)" asp-route-CategoryId="@TempData["CategoryId"]">Last</a>
+                                </li>
+                            }
+
+                        </ul>
+                    </nav>
+                }
+            </div>
+            
+
+        </div>
+        <div class="col-md-4 mx-auto text-center my-1"><a asp-action="Index" class="btn btn-warning" asp-controller="Home">Back to Home</a></div>
+
+    </div>
+</div>
